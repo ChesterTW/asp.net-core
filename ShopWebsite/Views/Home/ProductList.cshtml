@@ -1,0 +1,79 @@
+@using ShopWebsite.Data
+@model List<Product>
+@{
+    ViewData["Title"] = "Product List Page";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
+<div class="text-center">
+    <h1 class="display-4">商品清單</h1>
+    <p>@TempData["ResultMessage"]</p>
+</div>
+<div>
+    <table
+    id="table"
+    data-toggle="table"
+    data-pagination="true"
+    data-page-list=[10,25,50,100]
+    data-search="true"
+    data-show-search-clear-button="true"
+    >
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>類別</th>
+                <th data-sortable="true">價格</th>
+                <th data-sortable="true">庫存</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(var product in Model){
+                    <tr>
+                        <th scope="col">@product.Name</th>
+                        @switch (product.CategoryId)
+                        {
+                            case 1:
+                                <th>PlayStaion 5</th>
+                                break;
+                            case 2:
+                                <th>PlayStaion 5 遊戲</th>
+                                break;
+                            case 3:
+                                <th>Nintendo Switch 主機</th>
+                                break;
+                            case 4:
+                                <th>Nintendo Switch 遊戲</th>
+                                break;
+
+                            default:
+                                <th>無類別</th>
+                                break;
+                        }
+                        <th>@product.Price</th>
+                        <th>@product.Stock</th>
+                        <th>
+                            @Html.ActionLink("詳細","DetailProduct",new {id=product.Id}, new { @class = "btn btn-light btn-sm" }) |
+                            @Html.ActionLink("編輯","EditProduct",new {id=product.Id}, new { @class = "btn btn-light btn-sm" }) |
+                            @Html.ActionLink("刪除","DeleteProduct",new {id=product.Id}, new { @class = "btn btn-danger btn-sm" })
+                        </th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div>
+        @Html.ActionLink("新增商品","CreateProduct",new{},new{@class="btn btn-primary"})
+        @Html.ActionLink("新增類別","CreateCategory",new{},new{@class="btn btn-primary"})
+        @Html.ActionLink("返回","Index",new{},new{@class="btn btn-secondary"})
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
+</div>
+
+
+

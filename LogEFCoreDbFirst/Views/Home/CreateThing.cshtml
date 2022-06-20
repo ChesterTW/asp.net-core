@@ -1,0 +1,26 @@
+@using LogEFCoreDbFirst.Data
+@{
+    ViewData["Title"] = "新增";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p>@TempData["ResultMessage"]</p>
+</div>
+<br>
+<form method="post" action="/Home/CreateThing">
+    <div>
+        <label for="">標題</label>
+        <div>
+            <input type="text" name="Title" id="">
+        </div>
+    </div>
+    <div>
+        <label for="">截止時間</label>
+        <div>
+            <input type="datetime-local" name="EndTime" id="">
+        </div>
+    </div>
+    <br>
+    <input type="submit" value="新增">
+</form>

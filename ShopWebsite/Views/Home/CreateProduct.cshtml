@@ -1,0 +1,82 @@
+@model List<SelectListItem>
+@{
+    ViewData["Title"] = "Create Product Page";
+}
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="~/lib/ckeditor5-32.0.0-gytsv0gk60xk/build/ckeditor.js"></script>
+
+<div class="text-center">
+    <h1 class="display-4">新增商品</h1>
+    <p>@TempData["ResultMessage"]</p>
+</div>
+
+<div>
+    <form method="post" action="/Home/CreateProduct" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row form-group">
+                <div class="col-6">
+                    <label name="Name" class="control-label">商品名稱</label>
+                    <input type="text" name="Name" id="" class="form-control">
+                </div>
+                <div class="col-2">
+                    <label name="CategoryId" class="control-label">商品類別</label>
+                    <p>@Html.DropDownList("CategoryId",(IEnumerable<SelectListItem>)Model,"請選擇類別")</p>
+                </div>
+                <div class="col-4">
+                    <label name="Image" class="control-label">商品圖片</label>
+                    <input type="file" name="img" id="myImg" accept="image/*"  class="form-control-file">
+                    <span class="text-danger field-validation-error" data-valmsg-replace="true" data-valmsg-for="Image"> The Image field is required.</span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-8">
+                    <label name="Description" class="control-label">商品簡介</label>
+                    <textarea name="Description" class="form-control" id="" cols="" rows="5"></textarea>
+                </div>
+                <div class="col-4">
+                    <img id="preview" style="max-height:200px;">
+                    @section PreviewImg{
+                        <script>
+                            $('#myImg').on('change', function (e) {
+                                const file = this.files[0];
+                                const objectURL = URL.createObjectURL(file);    // 使用 createObjectURL 產生圖片url
+                                $('#preview').attr('src', objectURL);
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-6">
+                    <label name="Price" class="control-label">商品價格</label>
+                    <input type="text" name="Price" id="" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label name="Stock" class="control-label">商品庫存</label>
+                    <input type="text" name="Stock" id="" class="form-control">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-12">
+                    <label name="Content" class="control-label">商品內容</label>
+                    <textarea name="Content" class="form-control" id="editor" cols="" rows="5"></textarea>
+                    @section CKEditor{
+                        <script>
+                            ClassicEditor
+                                .create( document.querySelector( '#editor' ) )
+                                .then( editor => {
+                                    console.log( 'Editor was initialized', editor );
+                                } )
+                                .catch( err => {
+                                    console.error( err.stack );
+                                } );
+                        </script>
+                    }
+                </div>
+            </div>
+            <input type="submit" value="新增" class="btn btn-primary">
+            @Html.ActionLink("返回","ProductList",new{},new { @class = "btn btn-secondary" })
+        </div>
+        
+    </form>
+</div>

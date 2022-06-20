@@ -1,0 +1,48 @@
+﻿@model List<ThingsModel>
+@using LogEFCoreDbFirst.Data
+@{
+    ViewData["Title"] = "待辦清單";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p>@TempData["ResultMessage"]</p>
+</div>
+<br>
+
+<form action="/Home/DeleteThings">
+    
+    @Html.ActionLink("新增","CreateThing")
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th>選取</th>
+                <th>編號</th>
+                <th>標題</th>
+                <th>創建時間</th>
+                <th>截止時間</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(ThingsModel thing in Model){
+                    <tr>
+                        <th><input type="checkbox" name="chbId" value="@thing.Id"></th>
+                        <th>@thing.Id</th>
+                        <th>@thing.Title</th>
+                        <th>@thing.CreateTime</th>
+                        <th>@thing.EndTime</th>
+                        <th>
+                            @Html.ActionLink("編輯","EditThing", new {id=thing.Id}) | 
+                            @Html.ActionLink("刪除","DeleteThing", new {id=thing.Id})
+                        </th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="批次刪除">
+</form>
+
+

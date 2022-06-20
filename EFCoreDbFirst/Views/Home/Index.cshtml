@@ -1,0 +1,40 @@
+﻿@using EFCoreDbFirst.Data.ModelsDB
+@{
+    ViewData["Title"] = "代辦事項";
+    List<ThingsModel> things = ViewBag.things;
+}
+
+<div class="text-center">
+    <h1 class="display-4">代辦事項</h1>
+    <p>@ViewData["ResultMessage"]</p>
+</div>
+@Html.ActionLink("新增","CreateThing")
+<div>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>標題</th>
+                <th>創建時間</th>
+                <th>截止時間</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(ThingsModel thing in things){
+                    <tr>
+                        <th>@thing.Id</th>
+                        <th>@thing.Title</th>
+                        <th>@thing.CreateTime</th>
+                        <th>@thing.EndTime</th>
+                        <th>@Html.ActionLink("編輯","EditThing",new { id=thing.Id })</th>
+                        <th>@Html.ActionLink("刪除","DeleteThing",new { id=thing.Id })</th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
