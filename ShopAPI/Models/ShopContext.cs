@@ -7,17 +7,12 @@ namespace ShopAPI.Models
 {
     public class ShopContext : DbContext
     {
-        public ShopContext()
-        {
-        }
+        public ShopContext() { }
 
-        public ShopContext(DbContextOptions<ShopContext> options)
-            : base(options)
-        {
-        }
+        public ShopContext(DbContextOptions<ShopContext> options): base(options) { }
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Product> Product { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
