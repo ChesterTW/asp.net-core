@@ -36,10 +36,23 @@ namespace ShopAPI.Controllers
             return Ok();
         }
 
+        [HttpGet("DeleteProduct/{id}")]
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        {
+            rptP.Delete(rptP.Read(id));
+            return Ok();
+        }
+
         [HttpGet("DetailProduct/{id}")]
         public async Task<ActionResult<Product>> DetailProduct(int id)
         {
             return rptP.Read(id);
+        }
+
+        [HttpGet("ListProduct")]
+        public async Task<ActionResult<List<Product>>> ListProduct()
+        {
+            return rptP.Reads();
         }
 
         [HttpPost("EditProduct")]
@@ -48,6 +61,8 @@ namespace ShopAPI.Controllers
             rptP.Update(pdt);
             return Ok();
         }
+
+        
 
 
     }
