@@ -25,9 +25,9 @@ namespace animalWiki.Controllers
 
 
         [HttpPost("CreateAnimal")]
-        public async Task<ActionResult<Animal>> CreateAnimal(Animal pdt)
+        public async Task<ActionResult<Animal>> CreateAnimal(Animal animal)
         {
-            rptAnimal.Create(pdt);
+            rptAnimal.Create(animal);
             return Ok();
         }
 
@@ -51,9 +51,9 @@ namespace animalWiki.Controllers
         }
 
         [HttpPost("EditAnimal")]
-        public async Task<ActionResult<Animal>> EditAnimal(Animal pdt)
+        public async Task<ActionResult<Animal>> EditAnimal(Animal animal)
         {
-            rptAnimal.Update(pdt);
+            rptAnimal.Update(animal);
             return Ok();
         }
     }
